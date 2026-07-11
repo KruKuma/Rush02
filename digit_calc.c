@@ -3,35 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   digit_calc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfurst <nfurst@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmathys <nmathys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 12:05:41 by nmathys           #+#    #+#             */
-/*   Updated: 2026/07/11 15:35:31 by nfurst           ###   ########.fr       */
+/*   Updated: 2026/07/11 16:56:49 by nmathys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dict.h"
 #include <unistd.h>
 
-void	ft_putstr(char *str)
-{
-	int	i;
+void	ft_putstr(char *str);
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
+void print_space(int *is_first);
 
-void	print_mag(t_dict *tab, int len_left)
+void	print_mag(t_dict *tab, int len_left, int *is_first)
 {
 	char	mag[40];
 	int	i;
 
 	if (len_left < 4)
 		return ;
+	print_space(is_first);
 	mag [0] = '1';
 	i = 1;
 	while (i < len_left)
@@ -43,47 +36,39 @@ void	print_mag(t_dict *tab, int len_left)
 	ft_putstr(find_in_dict(tab, mag));
 }
 
-void	process_tens(t_dict *tab, char b, char c)
+void	print_dict_elem(t_dict *tab, char c1, char c2)
 {
 	char str[3];
+
+	str[0] = c1;
+	str[1] = c2;
+	str[2] = '\0';
+	ft_putstr(find_in_dict(tab, str));
+}
+
+void	process_tens(t_dict *tab, char b, char c, int *is_first)
+{
 	if (b == '0' && c == '0')
 		return ;
+	print_space(is_first);
 	if (b == '1')
-	{
-		str[0] = b;
-		str[1] = c;
-		str[2] = '\0';
-		ft_putstr(find_in_dict(tab, str));
-		ft_putstr(" ");
-	}
+		print_dict_elem(tab, b, c);
 	else
 	{
 		if (b != '0')
-		{
-			str[0] = b;
-			str[1] = '0';
-			str[2] = '\0';
-			ft_putstr(find_in_dict(tab, str));
-			ft_putstr(" ");
-		}
-		if (b != '0' && c != '0')
-			ft_putstr(" ");
+			print_dict_elem(tab, b, '\0');
 		if (c != '0')
-		{
-			str[0] = c;
-			str[1] = '\0';
-			ft_putstr(find_in_dict(tab, str));
-			ft_putstr(" ");
-		}
+			print_dict_elem(tab, c, '\0');
 	}
 }
 
-void	process_digits(t_dict *tab, char a, char b, char c)
+void	process_digits(t_dict *tab, char a, char b, char c, int *is_first)
 {
 	char str[2];
 
 	if (a != '0')
 	{
+		print_space(is_first);
 		str[0] = a;
 		str[1] = '\0';
 		ft_putstr(find_in_dict(tab, str));
@@ -96,31 +81,25 @@ void	process_digits(t_dict *tab, char a, char b, char c)
 void	parse_left_to_right(t_dict *tab, char *str, int len)
 {
 	int	i;
-	int	m;
-	char temp[2];
 
-	i = 0;
-	m = len % 3;
-	if (m == 1 && str[0] != '0')
+	i = len % 3;
+	if (i == 1 && str[0] != '0')
 	{
-		temp[0] = str[0];
-		temp[1] = '\0';
-		ft_putstr(find_in_dict(tab, str));
-		print_mag;
-		i = i + 1;
+		print_space(is_first);
+		ft_putstr(find_in_dict(tab, str[0]));
+		print_mag(tab, len, is_first);
 	}
-	else if (m == 2 && (str[0] != '0' || str[1] != '0'))
+	else if (i == 2 && (str[0] != '0' || str[1] != '0'))
 	{
-		process_tens(tab, str[0], str[1]);
-		print_mag;
-		i = i + 2;
+		process_tens(tab, str[0], str[1], is_first);
+		print_mag(tab, len, is_first);
 	}
 	while (i < len)
 	{
 		if (str[i] != '0' || str[i + 1] != '0' || str[i + 2] != '0')
 		{
-			process_digits(tab, str[i], str[i + 1], str[i + 2]);
-			print_mag;
+			process_digits(tab, str[i], str[i + 1], str[i + 2], is_first);
+			print_mag(tab, len - i, is_first);
 		}
 		i = i + 3;
 	}

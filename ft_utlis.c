@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utlis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfurst <nfurst@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmathys <nmathys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 15:17:05 by nfurst            #+#    #+#             */
-/*   Updated: 2026/07/11 15:26:47 by nfurst           ###   ########.fr       */
+/*   Updated: 2026/07/11 16:46:18 by nmathys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,11 @@ int	strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
+
+void print_space(int *is_first)
+{
+	if (*is_first == 0)
+		ft_putstr(" ")
+	*is_first = 0;
 }
