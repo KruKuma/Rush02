@@ -6,7 +6,7 @@
 /*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 14:13:15 by shkrasni          #+#    #+#             */
-/*   Updated: 2026/07/11 16:47:34 by shkrasni         ###   ########.fr       */
+/*   Updated: 2026/07/12 10:25:37 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include "dict.h"
+#include "../includes/dict.h"
 
 int	ft_strlen(char *str);
 
-#define DICTIONARY "numbers.dict"
+#define DICTIONARY "../numbers.dict"
 
 int	count_lines(char *str)
 {
@@ -62,43 +62,88 @@ char	*ft_split(char *str, int turn)
 	return res;
 }
 
+// t_dict	*parse_dict(char *str)
+// {
+// 	int			i;
+// 	int			index_turn;
+// 	int			t_number_index;
+// 	t_dict	*res;
+
+// 	res = malloc(sizeof(t_dict) * (count_lines(str) + 1));
+// 	if (!res)
+// 		return (NULL);
+// 	index_turn = 1;
+// 	t_number_index = 0;
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] > 32 && str[i] < 126 && str[i] != ' ' && str[i] != ':')
+// 		{
+// 			if (index_turn == 1)
+// 			{
+// 				res[t_number_index].key = ft_split(&str[i], index_turn);
+// 				i += ft_strlen(res[t_number_index].key);
+// 			}
+// 			else if (index_turn == 0)
+// 			{
+// 				res[t_number_index].value = ft_split(&str[i], index_turn);
+// 				i += ft_strlen(res[t_number_index].value);
+// 			}
+// 		}
+// 		if (str[i] == ':')
+// 			index_turn = 0;
+// 		if (str[i] == '\n')
+// 		{
+// 			t_number_index++;
+// 			index_turn = 1;
+// 		}
+// 		i++;
+// 	}
+// 	return (res);
+// }
+
+void	parse_entry(char *str, int *i, t_dict *entry)
+{
+	while (str[*i] && str[*i] != '\n')
+	{
+		if (str[*i] > 32 && str[*i] < 126
+			&& str[*i] != ' ' && str[*i] != ':')
+		{
+			if (!entry->key)
+				entry->key = ft_split(&str[*i], 1);
+			else
+				entry->value = ft_split(&str[*i], 0);
+			if (entry->value)
+				*i += ft_strlen(entry->value);
+			else
+				*i += ft_strlen(entry->key);
+		}
+		else
+			(*i)++;
+	}
+}
+
 t_dict	*parse_dict(char *str)
 {
-	int			i;
-	int			index_turn;
-	int			t_number_index;
 	t_dict	*res;
+	int		i;
+	int		index;
 
 	res = malloc(sizeof(t_dict) * (count_lines(str) + 1));
 	if (!res)
 		return (NULL);
-	index_turn = 1;
-	t_number_index = 0;
 	i = 0;
+	index = 0;
 	while (str[i])
 	{
-		if (str[i] > 32 && str[i] < 126 && str[i] != ' ' && str[i] != ':')
-		{
-			if (index_turn == 1)
-			{
-				res[t_number_index].key = ft_split(&str[i], index_turn);
-				i += ft_strlen(res[t_number_index].key);
-			}
-			else if (index_turn == 0)
-			{
-				res[t_number_index].value = ft_split(&str[i], index_turn);
-				i += ft_strlen(res[t_number_index].value);
-			}
-		}
-		if (str[i] == ':')
-			index_turn = 0;
+		res[index].key = NULL;
+		res[index].value = NULL;
+		parse_entry(str, &i, &res[index++]);
 		if (str[i] == '\n')
-		{
-			t_number_index++;
-			index_turn = 1;
-		}
-		i++;
+			i++;
 	}
+	res[index].key = NULL;
+	res[index].value = NULL;
 	return (res);
 }
 
@@ -120,7 +165,12 @@ int main(int argc, char **argv)
 	read(file_descriptor, buffer, sizeof(buffer));
 	t_dict *a = parse_dict(buffer);
 	int i = 0;
-	printf("Key : %s\nValue : %s", a[i].key, a[i].value);
+	// printf("Key : %s\nValue : %s", a[i].key, a[i].value);
+	while (a[i].key != NULL && a[i].value != NULL)
+	{
+		printf("%s - %s\n", a[i].key, a[i].value);
+		i++;
+	}
 	free(a);
 	// printf("%s \n",buffer);
 }
