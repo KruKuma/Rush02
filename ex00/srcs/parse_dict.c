@@ -6,7 +6,7 @@
 /*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 14:13:15 by shkrasni          #+#    #+#             */
-/*   Updated: 2026/07/12 16:44:52 by shkrasni         ###   ########.fr       */
+/*   Updated: 2026/07/12 16:49:01 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*ft_split(char *str, int turn)
 	if (turn == 1)
 		while ((str[size] >= '0' && str[size] <= '9') || str[size] != ':')
 			size++;
-		
 	else if (turn == 0)
 		while ((str[size] >= 32 && str[size] < 126) && str[size] != '\n')
 			size++;
