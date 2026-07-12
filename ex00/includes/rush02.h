@@ -27,6 +27,10 @@ int		ft_print_digit(t_dict *tab, char c, int *is_first);
 int		ft_print_two(t_dict *tab, char a, char b, int *is_first);
 int		ft_print_key(t_dict *tab, char *key, int *is_first);
 int		ft_convert_number(t_dict *tab, char *nb);
+int		ft_group_is_zero(char *group);
+int		ft_print_group(t_dict *tab, char *group, int *is_first);
+int		ft_print_scale(t_dict *tab, int zeros, int *is_first);
+void	ft_fill_group(char *group, char *nb, int group_len);
 
 /* utils */
 int		ft_strlen(char *str);
