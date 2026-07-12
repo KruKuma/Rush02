@@ -6,7 +6,7 @@
 /*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 14:13:15 by shkrasni          #+#    #+#             */
-/*   Updated: 2026/07/12 13:07:50 by shkrasni         ###   ########.fr       */
+/*   Updated: 2026/07/12 13:11:01 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include "../includes/dict.h"
-
-int	ft_strlen(char *str);
+#include "rush02.h"
 
 #define DICTIONARY "../numbers.dict"
 
