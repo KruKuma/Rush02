@@ -1,5 +1,13 @@
 #include "rush02.h"
 
+void	parse_left_to_right(t_dict *tab, char *str, int len, int *is_first);
+
+int	ft_strlen(char *str);
+
+char *find_in_dict(t_dict *tab, char *key);
+
+int	ft_strcmp(char *s1, char *s2);
+
 int	is_nbr_valid(char *str)
 {
 	int i = 0;
@@ -16,18 +24,20 @@ int main(int argc, char **argv)
 	char 	*nbr;
 	char	*content;
 	t_dict	*dict;
+	int	len;
+	int	is_first;
 
+	is_first = 1;
 	if(argc == 2)
-		nbr = argv[1];
+	nbr = argv[1];
 	else if(argc == 3)
-	{
 		nbr = argv[2];
-	}
 	else
 	{
 		write(2, "Dict Error\n", 11);
 		return 1;
 	}
+	len = ft_strlen(nbr);
 	content = ft_read_file("numbers.dict");
 	if (content == 0)
 	{
@@ -35,9 +45,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	dict = parse_dict(content);
-	if (!ft_convert_number(dict, nbr))
-	{
-		write(1, "Dict Error\n", 11);
-		return (1);
-	}
+	parse_left_to_right(dict , nbr, len, &is_first);
+	if (ft_strcmp(nbr, "0\0") == 0)
+		ft_putstr(find_in_dict(dict, "0"));
 }
