@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utlis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmathys <nmathys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 15:17:05 by nfurst            #+#    #+#             */
-/*   Updated: 2026/07/11 17:02:21 by nmathys          ###   ########.fr       */
+/*   Updated: 2026/07/12 10:29:37 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	ft_strlen(char *str)
 void print_space(int *is_first)
 {
 	if (*is_first == 0)
-		ft_putstr(" ")
+		ft_putstr(" ");
 	*is_first = 0;
 }
