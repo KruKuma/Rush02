@@ -6,7 +6,7 @@
 /*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 15:17:05 by nfurst            #+#    #+#             */
-/*   Updated: 2026/07/12 10:29:37 by shkrasni         ###   ########.fr       */
+/*   Updated: 2026/07/12 12:03:18 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_strlen(char *str)
 {
 	int i;
 
+	if (!str)
+		return (1);
 	i = 0;
 	while (str[i] != '\0')
 		i++;

@@ -6,7 +6,7 @@
 /*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 14:13:15 by shkrasni          #+#    #+#             */
-/*   Updated: 2026/07/12 10:57:46 by shkrasni         ###   ########.fr       */
+/*   Updated: 2026/07/12 12:51:10 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ char	*ft_split(char *str, int turn)
 	size = 0;
 	i = 0;
 	if (turn == 1)
-		while ((str[size] >= '0' && str[size] <= '9'))
+		while (str[size] >= '0' && str[size] <= '9')
 			size++;
 	else if (turn == 0)
 		while ((str[size] >= 32 && str[size] < 126) && str[size] != '\n')
 			size++;
 	res = malloc(sizeof(char) * (size + 1));
-	if (!res)
+	if (!res || (size == 0 && turn == 1))
 		return (NULL);
 	while (i < size)
 	{
@@ -66,60 +66,33 @@ char	*ft_split(char *str, int turn)
 		i++;
 	}
 	res[i] = '\0';
-	return res;
+	return (res);
 }
 
-// t_dict	*parse_dict(char *str)
-// {
-// 	int			i;
-// 	int			index_turn;
-// 	int			t_number_index;
-// 	t_dict	*res;
+void	trim_ending_spaces(char *str)
+{
+	int	len;
 
-// 	res = malloc(sizeof(t_dict) * (count_lines(str) + 1));
-// 	if (!res)
-// 		return (NULL);
-// 	index_turn = 1;
-// 	t_number_index = 0;
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] > 32 && str[i] < 126 && str[i] != ' ' && str[i] != ':')
-// 		{
-// 			if (index_turn == 1)
-// 			{
-// 				res[t_number_index].key = ft_split(&str[i], index_turn);
-// 				i += ft_strlen(res[t_number_index].key);
-// 			}
-// 			else if (index_turn == 0)
-// 			{
-// 				res[t_number_index].value = ft_split(&str[i], index_turn);
-// 				i += ft_strlen(res[t_number_index].value);
-// 			}
-// 		}
-// 		if (str[i] == ':')
-// 			index_turn = 0;
-// 		if (str[i] == '\n')
-// 		{
-// 			t_number_index++;
-// 			index_turn = 1;
-// 		}
-// 		i++;
-// 	}
-// 	return (res);
-// }
+	len = ft_strlen(str);
+	while (len > 0 && str[len - 1] == ' ')
+		len--;
+	str[len] = '\0';
+}
 
 void	parse_entry(char *str, int *i, t_dict *entry)
 {
 	while (str[*i] && str[*i] != '\n')
 	{
-		if (str[*i] > 32 && str[*i] < 126
+		if (str[*i] >= 32 && str[*i] <= 126
 			&& str[*i] != ' ' && str[*i] != ':')
 		{
 			if (!entry->key)
 				entry->key = ft_split(&str[*i], 1);
 			else
+			{
 				entry->value = ft_split(&str[*i], 0);
+				trim_ending_spaces(entry->value);
+			}
 			if (entry->value)
 				*i += ft_strlen(entry->value);
 			else
@@ -145,10 +118,13 @@ t_dict	*parse_dict(char *str)
 	{
 		if (str[i] == '\n')
 			i++;
-		else {
+		else
+		{
 			res[index].key = NULL;
 			res[index].value = NULL;
 			parse_entry(str, &i, &res[index++]);
+			if (res[index - 1].key == NULL || res[index - 1].value == NULL)
+				return (NULL);
 		}
 	}
 	res[index].key = NULL;
@@ -173,11 +149,15 @@ int main(int argc, char **argv)
 	int file_descriptor = open(DICTIONARY, O_RDONLY);
 	read(file_descriptor, buffer, sizeof(buffer));
 	t_dict *a = parse_dict(buffer);
-	int i = 0;
-	// printf("Key : %s\nValue : %s", a[i].key, a[i].value);
-	while (a[i].key != NULL && a[i].value != NULL)
+	if (a == NULL)
 	{
-		printf("%s - %s\n", a[i].key, a[i].value);
+		write(2, "Dict Error\n", 11);
+		return (1);
+	}
+	int i = 0;
+	while ((a[i].key != NULL && a[i].value != NULL) || i == 0)
+	{
+		printf("[%s] - [%s]\n", a[i].key, a[i].value);
 		i++;
 	}
 	free(a);
