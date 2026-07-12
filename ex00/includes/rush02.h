@@ -1,6 +1,11 @@
 #ifndef RUSH02_H
 # define RUSH02_H
 
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+
 typedef struct s_dict
 {
 	char	*key;
