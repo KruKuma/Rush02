@@ -12,7 +12,7 @@
 
 #include "rush02.h"
 
-void print_space(int *is_first)
+void ft_print_space(int *is_first)
 {
     if (*is_first == 0)
         ft_putstr(" ");
@@ -26,7 +26,7 @@ int ft_print_key(t_dict *tab, char *key, int *is_first)
     value = find_in_dict(tab, key);
     if (value == 0)
         return (0);
-    print_space(is_first);
+    ft_print_space(is_first);
     ft_putstr(value);
     return (1);
 }

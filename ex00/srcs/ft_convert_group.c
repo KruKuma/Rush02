@@ -12,9 +12,9 @@
 
 #include "rush02.h"
 
-int	print_digit(t_dict *tab, char c, int *is_first);
-int	print_two(t_dict *tab, char a, char b, int *is_first);
-int	print_key(t_dict *tab, char *key, int *is_first);
+int	ft_print_digit(t_dict *tab, char c, int *is_first);
+int	ft_print_two(t_dict *tab, char a, char b, int *is_first);
+int	ft_print_key(t_dict *tab, char *key, int *is_first);
 
 int ft_group_is_zero(char *group)
 {
