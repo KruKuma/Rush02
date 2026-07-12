@@ -20,6 +20,7 @@ typedef struct s_conv
 t_dict	*parse_dict(char *content);
 char	*find_in_dict(t_dict *tab, char *key);
 void	free_dict(t_dict *dict);
+char	*ft_read_file(char *filename);
 
 /* convert */
 int		ft_print_digit(t_dict *tab, char c, int *is_first);
