@@ -6,7 +6,7 @@
 /*   By: shkrasni <shkrasni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 14:13:15 by shkrasni          #+#    #+#             */
-/*   Updated: 2026/07/12 10:25:37 by shkrasni         ###   ########.fr       */
+/*   Updated: 2026/07/12 10:57:46 by shkrasni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,20 @@ int	count_lines(char *str)
 {
 	int	count;
 	int	i;
+	int	is_not_empty;
 
 	count = 0;
 	i = 0;
+	is_not_empty = 0;
 	while (str[i])
 	{
-		if (str[i] == '\n')
+		if (str[i] >= 32 && str[i] <= 126)
+			is_not_empty = 1;
+		if (str[i] == '\n' && is_not_empty == 1)
+		{
 			count++;
+			is_not_empty = 0;
+		}
 		i++;
 	}
 	return (count);
@@ -136,11 +143,13 @@ t_dict	*parse_dict(char *str)
 	index = 0;
 	while (str[i])
 	{
-		res[index].key = NULL;
-		res[index].value = NULL;
-		parse_entry(str, &i, &res[index++]);
 		if (str[i] == '\n')
 			i++;
+		else {
+			res[index].key = NULL;
+			res[index].value = NULL;
+			parse_entry(str, &i, &res[index++]);
+		}
 	}
 	res[index].key = NULL;
 	res[index].value = NULL;
