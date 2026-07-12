@@ -6,13 +6,11 @@
 /*   By: nmathys <nmathys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 14:13:07 by nfurst            #+#    #+#             */
-/*   Updated: 2026/07/12 14:18:22 by nmathys          ###   ########.fr       */
+/*   Updated: 2026/07/12 16:41:59 by nmathys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
-
-char	*find_in_dict(t_dict *tab, char *key);
 
 int	ft_strcmp(char *s1, char *s2)
 {
