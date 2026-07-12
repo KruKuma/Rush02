@@ -14,9 +14,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include "dict.h"
-
-int	ft_strlen(char *str);
+#include "rush02.h"
 
 #define DICTIONARY "numbers.dict"
 

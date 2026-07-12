@@ -10,12 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dict.h"
+#include "rush02.h"
 #include <unistd.h>
-
-void	ft_putstr(char *str);
-
-void	print_space(int *is_first);
 
 void	print_mag(t_dict *tab, int len_left, int *is_first)
 {
