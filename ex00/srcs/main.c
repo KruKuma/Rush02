@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
 #include "rush02.h"
 
 int	is_nbr_valid(char *str)
