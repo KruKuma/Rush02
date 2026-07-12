@@ -22,11 +22,13 @@ char	*find_in_dict(t_dict *tab, char *key);
 void	free_dict(t_dict *dict);
 
 /* convert */
-int		convert_number(t_dict *tab, char *nb);
+int		ft_print_digit(t_dict *tab, char c, int *is_first);
+int		ft_print_two(t_dict *tab, char a, char b, int *is_first);
+int		ft_print_key(t_dict *tab, char *key, int *is_first);
+int		ft_convert_number(t_dict *tab, char *nb);
 
 /* utils */
 int		ft_strlen(char *str);
-int		ft_strcmp(char *s1, char *s2);
 void	ft_putstr(char *str);
 
 #endif
