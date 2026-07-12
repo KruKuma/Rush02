@@ -6,7 +6,7 @@
 /*   By: nfurst <nfurst@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 14:13:15 by shkrasni          #+#    #+#             */
-/*   Updated: 2026/07/12 13:06:09 by nfurst           ###   ########.fr       */
+/*   Updated: 2026/07/12 13:52:08 by nfurst           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,34 +130,34 @@ t_dict	*parse_dict(char *str)
 	return (res);
 }
 
-int main(int argc, char **argv)
-{
-	char *nbr;
-	if(argc == 2)
-		nbr = argv[1];
-	else if(argc == 3)
-		;
-	else
-	{
-		write(2, "Dict Error\n", 11);
-		return 1;
-	}
+// int main(int argc, char **argv)
+// {
+// 	char *nbr;
+// 	if(argc == 2)
+// 		nbr = argv[1];
+// 	else if(argc == 3)
+// 		;
+// 	else
+// 	{
+// 		write(2, "Dict Error\n", 11);
+// 		return 1;
+// 	}
 
-	char buffer[1000];
-	int file_descriptor = open(DICTIONARY, O_RDONLY);
-	read(file_descriptor, buffer, sizeof(buffer));
-	t_dict *a = parse_dict(buffer);
-	if (a == NULL)
-	{
-		write(2, "Dict Error\n", 11);
-		return (1);
-	}
-	int i = 0;
-	while ((a[i].key != NULL && a[i].value != NULL) || i == 0)
-	{
-		printf("[%s] - [%s]\n", a[i].key, a[i].value);
-		i++;
-	}
-	free(a);
-	// printf("%s \n",buffer);
-}
+// 	char buffer[1000];
+// 	int file_descriptor = open(DICTIONARY, O_RDONLY);
+// 	read(file_descriptor, buffer, sizeof(buffer));
+// 	t_dict *a = parse_dict(buffer);
+// 	if (a == NULL)
+// 	{
+// 		write(2, "Dict Error\n", 11);
+// 		return (1);
+// 	}
+// 	int i = 0;
+// 	while ((a[i].key != NULL && a[i].value != NULL) || i == 0)
+// 	{
+// 		printf("[%s] - [%s]\n", a[i].key, a[i].value);
+// 		i++;
+// 	}
+// 	free(a);
+// 	// printf("%s \n",buffer);
+// }
